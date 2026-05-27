@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Palmyra Restoration Experiment</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div id="hero-map"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow">The Palmyra Restoration Experiment</p>
+    <h1>Ten Years of Reef Recovery on a Remote Pacific Atoll</h1>
+    <p class="hero-sub">We tracked five coral restoration strategies across a decade of annual surveys — right through the 2023–2024 global coral bleaching event.</p>
+    <p class="scroll-cue">↓</p>
+  </div>
+</section>
+
+<!-- ── MAP SCROLL SECTION ── -->
+<div id="map-scroll">
+  <div id="map-sticky-panel">
+    <div id="leaflet-map"></div>
+  </div>
+  <div id="map-steps">
+    <div class="pacific-scroll-group">
+      <div class="map-step" data-map="pacific-intro">
+        <div class="step-content">
+          <div class="step-tag">The setting</div>
+          <h2>One of the most remote reefs in the central Pacific.</h2>
+          <p class="para-reveal">Palmyra Atoll is an uninhabited coral reef ~1,000 miles south of Hawaii, established as a National Wildlife Refuge in 2001. It is one of the most well-managed reef ecosystems on Earth.</p>
+        </div>
+      </div>
+      <div class="para-trigger" data-trigger="pacific-detail"></div>
+    </div>
+    <div class="map-step" data-map="palmyra">
+      <div class="step-content">
+        <div class="step-tag">The disturbance</div>
+        <h2>In 1991, a fishing vessel wrecked on the reef.</h2>
+        <p>This disturbed the environment, and leached iron and nutrients into the surrounding water, corresponding with a mass outbreak of the invasive corallimorph <em>Rhodactis howesii</em>.</p>
+        <figure class="step-fig">
+          <img src="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/Shipwreck.JPG" alt="Shipwreck at Palmyra Atoll">
+          <figcaption>Credit: USGS</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="map-step" data-map="corallimorph">
+      <div class="step-content">
+        <div class="step-tag">The invader</div>
+        <h2>A cnidarian that restructures reefs.</h2>
+        <p>Corallimorphs are fast-growing, adaptable cnidarians that can outcompete hard corals and crustose coralline algae (CCA), fundamentally restructuring the benthic community.</p>
+        <figure class="step-fig">
+          <img src="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/Shipwreck2.JPG" alt="Rhodactis howesii corallimorph at Palmyra Atoll">
+          <figcaption>Credit: USGS</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="map-step" data-map="opportunity">
+      <div class="step-content">
+        <div class="step-tag">The opportunity</div>
+        <h2>The wreck was removed in 2014.</h2>
+        <p>This created a unique opportunity to implement experimental restoration strategies on a remote, well-managed reef.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STUDY BANNER ── -->
+<section id="study-banner">
+  <p class="banner-beats">Ten years of surveys. One bleaching event.</p>
+  <p class="banner-sub">The underlying question:<br><em>Does how you restore a reef determine how it survives?</em></p>
+</section>
+
+<!-- ── TREATMENTS ── -->
+<section id="treatments">
+  <div class="section-header">
+    <h2>We implemented five restoration strategies.</h2>
+    <p>Fifteen 3×3 m permanent survey plots were established around the shipwreck scar and randomly assigned to one of five treatments (see below).</p>
+  </div>
+  <div class="treatment-grid">
+    <div class="tcard">
+      <div class="tcard-label">
+        <span class="tcard-code" style="color:#9CA3AF">C-CON</span>
+        <span class="tcard-name">Control — No Removal</span>
+      </div>
+      <div class="tcard-img" style="background-image: url('images/c-con.png')">
+        <div class="tci-overlay"></div>
+      </div>
+      <div class="tci-desc">No manipulation. Natural succession only.</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-label">
+        <span class="tcard-code" style="color:#FFD600">C-REM</span>
+        <span class="tcard-name">Control — Corallimorph Removal</span>
+      </div>
+      <div class="tcard-img" style="background-image: url('images/c-rem.png')">
+        <div class="tci-overlay"></div>
+      </div>
+      <div class="tci-desc"><em>R. howesii</em> removed. No coral transplants.</div>
+    </div>
+    <div class="trow-label">All three transplant treatments included corallimorph removal and coral transplanting, but arrangements varied within each treatment:</div>
+    <div class="tcard">
+      <div class="tcard-label">
+        <span class="tcard-code" style="color:#2196F3">T-BYSP</span>
+        <span class="tcard-name">Transplant — By-Species</span>
+      </div>
+      <div class="tcard-img" style="background-image: url('images/t-bysp.png')">
+        <div class="tci-overlay"></div>
+      </div>
+      <div class="tci-desc">Removal + transplantation of <i>Acropora</i>, <i>Montipora</i>, and <i>Pocillopora</i>, grouped by species.</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-label">
+        <span class="tcard-code" style="color:#00C853">T-XSP</span>
+        <span class="tcard-name">Transplant — Cross-Species</span>
+      </div>
+      <div class="tcard-img" style="background-image: url('images/t-xsp.png')">
+        <div class="tci-overlay"></div>
+      </div>
+      <div class="tci-desc">Removal + transplantation of <i>Acropora</i>, <i>Montipora</i>, and <i>Pocillopora</i>, mixed across species.</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-label">
+        <span class="tcard-code" style="color:#F44336">T-RAN</span>
+        <span class="tcard-name">Transplant — Random</span>
+      </div>
+      <div class="tcard-img" style="background-image: url('images/t-ran.png')">
+        <div class="tci-overlay"></div>
+      </div>
+      <div class="tci-desc">Removal + transplantation of <i>Acropora</i>, <i>Montipora</i>, and <i>Pocillopora</i>, randomly arranged.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── METHODS ── -->
+<section id="methods">
+  <div class="methods-inner">
+    <h2>How the data were collected</h2>
+    <div class="methods-points">
+      <div class="methods-point">
+        <div class="methods-num">01</div>
+        <p>Annual photogrammetry surveys by divers captured ~1,000 images per plot, processed into 3D models using structure-from-motion (SfM) software (Agisoft Metashape).</p>
+      </div>
+      <div class="methods-point">
+        <div class="methods-num">02</div>
+        <div>
+          <p>Benthic composition was quantified using Virtual Point Intercept (VPI) analysis in custom software (Viscore), with ~30 stratified random points per m² identified to the finest possible taxonomic resolution. The pink star indicates a <i>Montipora</i> colony.</p>
+          <figure class="methods-fig">
+            <img src="images/vpi.png" alt="Virtual Point Intercept analysis on a 3D photogrammetry model">
+          </figure>
+        </div>
+      </div>
+      <div class="methods-point">
+        <div class="methods-num">03</div>
+        <p>Percent cover data were aggregated and standardized across all 13 survey timepoints using a custom Python pipeline, with all visualizations and statistical analyses conducted in R.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA BANNER ── -->
+<div id="data-scroll-header">
+  <h2>The Experiment, Year by Year</h2>
+</div>
+
+<!-- ── MAIN DATA SCROLLYTELLING ── -->
+<div id="data-scroll">
+
+  <div id="data-chart-panel">
+    <div id="data-chart-header">
+      <span class="dc-title">All Coral</span>
+      <span class="dc-sub">Mean ± 1 SE</span>
+    </div>
+    <svg id="data-chart"></svg>
+    <div id="data-legend"></div>
+  </div>
+
+  <div id="data-steps">
+
+    <div class="step" data-step="baseline">
+      <div class="step-content">
+        <div class="step-tag">October 2015</div>
+        <h2>The experiment begins.</h2>
+        <p>Fifteen permanent plots were established around the shipwreck scar. With the corallimorph gone and the substrate bare, every treatment starts near zero coral cover in October 2015.</p>
+      </div>
+    </div>
+
+    <div class="step" data-step="early">
+      <div class="step-content">
+        <div class="step-tag">October 2015 — September 2019</div>
+        <h2>Treatment strategies begin to diverge.</h2>
+        <p>Four years in, transplant plots are pulling well ahead. By 2019, all three transplant treatments exceed 15% coral cover while both control plots remain under 3%. This suggests that active restoration, not natural recruitment, is driving recovery.</p>
+      </div>
+    </div>
+
+    <div class="step" data-step="peak">
+      <div class="step-content">
+        <div class="step-tag">September 2019 — October 2023</div>
+        <h2>Eight years of restoration transforms the reef.</h2>
+        <p>By October 2023, all three transplant treatments exceed 30% hard coral cover: T-BYSP peaks at 40%, a tenfold increase from the baseline. Control plots reach ~13%, showing passive recovery is possible but slow. There is a distinct gap between active and passive restoration.</p>
+      </div>
+    </div>
+
+    <div class="step" data-step="bleaching">
+      <div class="step-content">
+        <div class="step-tag" style="color:#ef4444">October 2023</div>
+        <h2 style="color:#ef4444">The 4th global coral bleaching event strikes.</h2>
+        <p>The 2023–2024 global mass bleaching event — the most severe on record — begins to take effect on Palmyra. The October 2023 survey captures peak cover. What follows is collapse.</p>
+      </div>
+    </div>
+
+    <div class="step" data-step="full">
+      <div class="step-content">
+        <div class="step-tag">October 2023 — September 2025</div>
+        <h2>Transplant plots suffer losses, but remain ahead of controls.</h2>
+        <p>By February 2024, transplant plots crash to ~10% coral cover, while control plots see a lower drop in coral cover. However, two years on, transplant plots remain above controls. This suggests that higher pre-bleaching coral cover may moderate post-bleaching decline.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SANDBOX ── -->
+<section id="sandbox">
+  <div class="sandbox-header">
+    <h2>Now it's your turn.</h2>
+    <p>Select an organism and toggle treatments to compare.</p>
+  </div>
+
+  <div class="sandbox-controls">
+    <div class="ctrl-group">
+      <span class="ctrl-label">Organism</span>
+      <div class="ctrl-pills" id="org-pills">
+        <button class="pill active" data-org="All Coral">All Coral</button>
+        <button class="pill" data-org="Acropora"><i>Acropora</i></button>
+        <button class="pill" data-org="Montipora"><i>Montipora</i></button>
+        <button class="pill" data-org="Pocillopora"><i>Pocillopora</i></button>
+        <button class="pill" data-org="Turf">Turf</button>
+        <button class="pill" data-org="CCA">CCA</button>
+        <button class="pill" data-org="Lobophora"><i>Lobophora</i></button>
+        <button class="pill" data-org="Peyssonnelia"><i>Peyssonnelia</i></button>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <span class="ctrl-label">Treatment</span>
+      <div class="ctrl-pills" id="trt-pills">
+        <button class="pill tpill active" data-trt="C-CON"  style="--pc:#9CA3AF">C-CON</button>
+        <button class="pill tpill active" data-trt="C-REM"  style="--pc:#FFD600">C-REM</button>
+        <button class="pill tpill active" data-trt="T-BYSP" style="--pc:#2196F3">T-BYSP</button>
+        <button class="pill tpill active" data-trt="T-XSP"  style="--pc:#00C853">T-XSP</button>
+        <button class="pill tpill active" data-trt="T-RAN"  style="--pc:#F44336">T-RAN</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="sandbox-chart-header" style="text-align:center; margin-bottom:0.5rem; display:flex; flex-direction:column; gap:0.2rem; max-width:800px; margin-left:auto; margin-right:auto;">
+    <span class="dc-title" id="sandbox-chart-title">All Coral</span>
+    <span class="dc-sub">Mean ± 1 SE</span>
+  </div>
+  <svg id="sandbox-chart"></svg>
+  <div id="sandbox-legend"></div>
+</section>
+
+<!-- ── COMMUNITY COMPOSITION ── -->
+<section id="community-section">
+  <div class="section-header">
+    <h2>Benthic Community Composition<br>Across Treatments</h2>
+    <p>Explore how 11 organism groups changed across treatments over time.</p>
+  </div>
+  <div class="community-inner">
+    <div class="comm-controls">
+      <span class="ctrl-label">Timepoint</span>
+      <div class="comm-slider-wrap">
+        <div class="slider-track-wrap">
+          <input type="range" id="date-slider" min="0" max="12" step="1" value="8">
+          <div class="bleach-zone-label">Bleaching event</div>
+        </div>
+        <span id="slider-date-label"></span>
+      </div>
+    </div>
+    <svg id="community-chart"></svg>
+    <div id="community-legend"></div>
+  </div>
+</section>
+
+<!-- ── CONCLUSION ── -->
+<section id="conclusion">
+  <div class="conclusion-inner">
+    <h2>What a decade of data tells us</h2>
+    <div class="conc-points">
+      <div class="conc-point">
+        <div class="conc-num">01</div>
+        <div class="conc-text">
+          <strong>Active restoration drove divergent benthic community trajectories over a decade</strong> — Transplant and control plots diverged in coral cover, algal competitor abundance, and encrusting organisms, underscoring that restoration shapes the entire benthic community, not just target species.
+        </div>
+      </div>
+
+      <figure class="conc-fig">
+        <img src="images/bleaching-comparison.png" alt="Orthophotos of a representative transplant plot at peak coral cover in October 2023 (A) and post-bleaching in February 2024 (B)">
+        <figcaption>Orthophotos of a representative transplant plot at peak coral cover in October 2023 (A) and following the onset of the 2023–2024 global bleaching event in February 2024 (B), illustrating the rapid decline in coral cover across the study site.</figcaption>
+      </figure>
+
+      <div class="conc-point">
+        <div class="conc-num">02</div>
+        <div class="conc-text">
+          <strong>Higher pre-bleaching coral cover may moderate post-bleaching decline</strong> — Transplant plots entered the 2023–2024 bleaching event with substantially higher cover and remained above controls through the most recent surveys.
+        </div>
+      </div>
+      <div class="conc-point">
+        <div class="conc-num">03</div>
+        <div class="conc-text">
+          <strong>Ecologically-informed, multi-species restoration supports reef resilience</strong> — As global bleaching events increase in frequency and severity, restoration approaches that consider community succession and competitor dynamics will be critical for achieving lasting recovery.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong>Dylan Dsouza</strong> &nbsp;·&nbsp; Smith Lab, Scripps Institution of Oceanography, UCSD<br>
+      <a href="mailto:dydsouza@ucsd.edu">dydsouza@ucsd.edu</a> &nbsp;·&nbsp;
+      <a href="https://seaweedecologylab.ucsd.edu" target="_blank">seaweedecologylab.ucsd.edu</a>
+    </div>
+    <div class="footer-ack">
+      Special thanks to my mentor Mitchell Smelser for his help throughout this study, as well as the sustained guidance of Samantha Clements, Dr. Adi Khen, Dr. Beverly French, and Dr. Jennifer Smith. This research is supported by The Nature Conservancy and the U.S. Fish and Wildlife Service, as well as collective efforts from members of the Smith and Sandin Labs at Scripps Institution of Oceanography.
+    </div>
+  </div>
+</footer>
+
+<!-- ── TOOLTIP ── -->
+<div id="chart-tooltip"></div>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox" aria-hidden="true">
+  <div id="lightbox-backdrop"></div>
+  <button id="lightbox-close" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
